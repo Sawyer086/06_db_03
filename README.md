@@ -57,9 +57,20 @@
 # Ответ:
 ## Задача 1:
 
+Команды:
+```
+sudo docker run --name mysql8 -v "/var/docker/mysql9/db:/var/lib/mysql" -v "/var/docker/mysql8:/tmp/backup" -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm -d mysql:8
+sudo docker exec -it mysql8 bin/bash
+mysql -e 'create database test_db;'
+mysql test_db < /tmp/backup/test_dump.sql
+mysql
+mysql> \s
+```
+![1](https://github.com/Sawyer086/06_db_03/blob/main/Screenshots/1.jpg)
+
 ## Задача 2:
+
 ## Задача 3:
+
 ## Задача 4:
-## Задача 5:
-## Задача 6:
-##
+
