@@ -62,7 +62,7 @@
 sudo docker run --name mysql8 -v "/var/docker/mysql9/db:/var/lib/mysql" -v "/var/docker/mysql8:/tmp/backup" -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm -d mysql:8
 sudo docker exec -it mysql8 bin/bash
 bash-4.4# mysql -e 'create database test_db;'
-bash-4.4# mysql test_db < /tmp/backup/test_dump.sql
+bash-4.4# mysql test_db < /tmp/backup/test_dump2.sql
 bash-4.4# mysql
 mysql> \s
 mysql> connect test_db
