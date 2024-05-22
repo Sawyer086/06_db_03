@@ -218,7 +218,7 @@ mysql> SHOW PROFILES;
 
 ## Задача 4:
 
-```sql
+``` sql
 #
 # The MySQL database server configuration file.
 #
