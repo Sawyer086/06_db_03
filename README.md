@@ -58,7 +58,7 @@
 ## Задача 1:
 
 Команды:
-```
+```sql
 sudo docker run --name mysql8 -v "/var/docker/mysql9/db:/var/lib/mysql" -v "/var/docker/mysql8:/tmp/backup" -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm -d mysql:8
 sudo docker exec -it mysql8 bin/bash
 bash-4.4# mysql -e 'create database test_db;'
@@ -114,7 +114,7 @@ mysql> select count(*) from orders where price>300;
 ```
 
 ## Задача 2:
-```
+```sql
 mysql> CREATE USER 'test' IDENTIFIED WITH mysql_native_password BY 'testpass'
     -> WITH MAX_QUERIES_PER_HOUR 100 PASSWORD EXPIRE INTERVAL 180 DAY FAILED_LOGIN_ATTEMPTS 3
     -> ATTRIBUTE '{"surname": "Pretty", "name": "James"}';
@@ -137,10 +137,88 @@ mysql> select * from INFORMATION_SCHEMA.USER_ATTRIBUTES;
 6 rows in set (0.00 sec)
 ```
 ## Задача 3:
+```sql
+mysql> show table status\G
+*************************** 1. row ***************************
+           Name: orders
+         Engine: InnoDB
+        Version: 10
+     Row_format: Dynamic
+           Rows: 5
+ Avg_row_length: 3276
+    Data_length: 16384
+Max_data_length: 0
+   Index_length: 0
+      Data_free: 0
+ Auto_increment: 6
+    Create_time: 2024-05-22 20:33:46
+    Update_time: 2024-05-22 20:33:47
+     Check_time: NULL
+      Collation: utf8mb4_0900_ai_ci
+       Checksum: NULL
+ Create_options:
+        Comment:
+1 row in set (0.02 sec)
+
+mysql> ALTER TABLE orders ENGINE=MyISAM;
+Query OK, 5 rows affected (0.10 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> show table status\G
+*************************** 1. row ***************************
+           Name: orders
+         Engine: MyISAM
+        Version: 10
+     Row_format: Dynamic
+           Rows: 5
+ Avg_row_length: 3276
+    Data_length: 16384
+Max_data_length: 0
+   Index_length: 0
+      Data_free: 0
+ Auto_increment: 6
+    Create_time: 2024-05-22 20:48:07
+    Update_time: 2024-05-22 20:33:47
+     Check_time: NULL
+      Collation: utf8mb4_0900_ai_ci
+       Checksum: NULL
+ Create_options:
+        Comment:
+1 row in set (0.00 sec)
+
+mysql> SHOW PROFILES;
++----------+------------+--------------------------------------+
+| Query_ID | Duration   | Query                                |
++----------+------------+--------------------------------------+
+|        1 | 0.01112150 | show table status                    |
+|        2 | 0.00181500 | ALTER TABLE table_name ENGINE=MyISAM |
+|        3 | 0.11148175 | ALTER TABLE orders ENGINE=MyISAM     |
+|        4 | 0.00214075 | show table status                    |
++----------+------------+--------------------------------------+
+4 rows in set, 1 warning (0.00 sec)
+
+mysql> ALTER TABLE orders ENGINE=InnoDB;
+Query OK, 5 rows affected (0.15 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql>
+mysql> SHOW PROFILES;
++----------+------------+--------------------------------------+
+| Query_ID | Duration   | Query                                |
++----------+------------+--------------------------------------+
+|        1 | 0.01112150 | show table status                    |
+|        2 | 0.00181500 | ALTER TABLE table_name ENGINE=MyISAM |
+|        3 | 0.11148175 | ALTER TABLE orders ENGINE=MyISAM     |
+|        4 | 0.00214075 | show table status                    |
+|        5 | 0.16117150 | ALTER TABLE orders ENGINE=InnoDB     |
++----------+------------+--------------------------------------+
+5 rows in set, 1 warning (0.00 sec)
 
 ## Задача 4:
 
-```
+```sql
 #
 # The MySQL database server configuration file.
 #
