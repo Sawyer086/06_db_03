@@ -65,13 +65,77 @@ bash-4.4# mysql -e 'create database test_db;'
 bash-4.4# mysql test_db < /tmp/backup/test_dump2.sql
 bash-4.4# mysql
 mysql> \s
+--------------
+mysql  Ver 8.0.33 for Linux on x86_64 (MySQL Community Server - GPL)
+
+Connection id:          12
+Current database:
+Current user:           root@localhost
+SSL:                    Not in use
+Current pager:          stdout
+Using outfile:          ''
+Using delimiter:        ;
+Server version:         8.0.33 MySQL Community Server - GPL
+Protocol version:       10
+Connection:             Localhost via UNIX socket
+Server characterset:    utf8mb4
+Db     characterset:    utf8mb4
+Client characterset:    latin1
+Conn.  characterset:    latin1
+UNIX socket:            /var/run/mysqld/mysqld.sock
+Binary data as:         Hexadecimal
+Uptime:                 17 min 10 sec
+
+Threads: 2  Questions: 42  Slow queries: 0  Opens: 139  Flush tables: 3  Open tables: 57  Queries per second avg: 0.040
+--------------
 mysql> connect test_db
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Connection id:    13
+Current database: test_db
+
 mysql> show tables;
++-------------------+
+| Tables_in_test_db |
++-------------------+
+| orders            |
++-------------------+
+1 row in set (0.00 sec)
+
 mysql> select count(*) from orders where price>300;
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
 ```
 
 ## Задача 2:
+```
+mysql> CREATE USER 'test' IDENTIFIED WITH mysql_native_password BY 'testpass'
+    -> WITH MAX_QUERIES_PER_HOUR 100 PASSWORD EXPIRE INTERVAL 180 DAY FAILED_LOGIN_ATTEMPTS 3
+    -> ATTRIBUTE '{"surname": "Pretty", "name": "James"}';
+Query OK, 0 rows affected (0.02 sec)
 
+mysql> GRANT SELECT on test_db.* TO test;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from INFORMATION_SCHEMA.USER_ATTRIBUTES;
++------------------+-----------+----------------------------------------+
+| USER             | HOST      | ATTRIBUTE                              |
++------------------+-----------+----------------------------------------+
+| root             | %         | NULL                                   |
+| test             | %         | {"name": "James", "surname": "Pretty"} |
+| mysql.infoschema | localhost | NULL                                   |
+| mysql.session    | localhost | NULL                                   |
+| mysql.sys        | localhost | NULL                                   |
+| root             | localhost | NULL                                   |
++------------------+-----------+----------------------------------------+
+6 rows in set (0.00 sec)
+```
 ## Задача 3:
 
 ## Задача 4:
