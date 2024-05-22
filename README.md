@@ -57,7 +57,6 @@
 # Ответ:
 ## Задача 1:
 
-Команды:
 ```sql
 sudo docker run --name mysql8 -v "/var/docker/mysql9/db:/var/lib/mysql" -v "/var/docker/mysql8:/tmp/backup" -e MYSQL_ALLOW_EMPTY_PASSWORD=yes --rm -d mysql:8
 sudo docker exec -it mysql8 bin/bash
@@ -216,6 +215,7 @@ mysql> SHOW PROFILES;
 +----------+------------+--------------------------------------+
 5 rows in set, 1 warning (0.00 sec)
 
+```
 ## Задача 4:
 
 ``` sql
