@@ -69,7 +69,6 @@ mysql> connect test_db
 mysql> show tables;
 mysql> select count(*) from orders where price>300;
 ```
-![1](https://github.com/Sawyer086/06_db_03/blob/main/Screenshots/1.jpg)
 
 ## Задача 2:
 
